@@ -2,10 +2,10 @@ import express from 'express';
 
 const app = express();
 
-app.get('/', (req, res) => {
-	res.send('hello world');
+app.get('/auth/currentUser', (req, res) => {
+	res.json('hello world');
 });
 
 app.listen(4000, () => {
-	console.log('server started!!!!!!!!!!!');
+	console.log('server started');
 });
