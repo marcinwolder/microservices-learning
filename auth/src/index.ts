@@ -7,5 +7,5 @@ app.get('/auth/currentUser', (req, res) => {
 });
 
 app.listen(4000, () => {
-	console.log('server started');
+	console.log('server started on port 4000');
 });
