@@ -1,4 +1,5 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import { handleErrors } from './middleware/errors/handleErrors';
 import { NotFoundError } from './middleware/errors/NotFoundError';
 
@@ -13,6 +14,15 @@ app.all('*', () => {
 });
 
 app.use(handleErrors);
-app.listen(4000, () => {
-	console.log('server started on port 4000');
-});
+
+(async () => {
+	try {
+		await mongoose.connect('mongodb://auth-mongo-ip-srv:27017/auth');
+		console.log('DB connected!');
+	} catch (err) {
+		console.error('DB error');
+	}
+	app.listen(4000, () => {
+		console.log('server started on port 4000');
+	});
+})();
