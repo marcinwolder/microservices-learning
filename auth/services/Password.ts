@@ -1,14 +1,11 @@
-import { genSaltSync, hashSync, compareSync } from 'bcrypt';
+import { hashSync, compareSync } from 'bcrypt';
 
 export class Password {
 	static hash(password: string) {
-		const salt = genSaltSync();
-		const hashedPassword = hashSync(password, salt);
-		return `${hashedPassword}.${salt}`;
+		return hashSync(password, 10);
 	}
 
 	static compare(storedPassword: string, password: string) {
-		const [hashedPassword, salt] = storedPassword.split('.');
-		return compareSync(password.concat(salt), hashedPassword);
+		return compareSync(password, storedPassword);
 	}
 }

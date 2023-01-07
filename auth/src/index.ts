@@ -6,6 +6,7 @@ import { User } from '../models/users';
 import { handleErrors } from './middleware/errors/handleErrors';
 import { NotFoundError } from './middleware/errors/NotFoundError';
 import { BadRequestError } from './middleware/errors/BadRequestError';
+import { Password } from '../services/Password';
 
 const app = express();
 
@@ -52,6 +53,12 @@ app.post(
 		}
 	}
 );
+
+app.post('/auth/test', async (req: Request, res: Response) => {
+	const { storedPassword, password } = req.body;
+
+	res.json(Password.compare(storedPassword, password));
+});
 
 app.all('*', (req: Request, res: Response) => {
 	throw new NotFoundError();
