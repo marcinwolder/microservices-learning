@@ -1,16 +1,18 @@
 import mongoose from 'mongoose';
 import { Password } from '../services/Password';
 
-interface userAttrs {
+interface UserAttrs {
 	email: string;
 	password: string;
 }
-interface userDoc extends userAttrs, mongoose.Document {}
-interface userModel extends mongoose.Model<userDoc> {
-	build(attrs: userAttrs): userDoc;
+
+interface UserModel extends mongoose.Model<UserDoc> {
+	build(attrs: UserAttrs): UserDoc;
 }
 
-const userSchema = new mongoose.Schema<userDoc, userModel>({
+interface UserDoc extends UserAttrs, mongoose.Document {}
+
+const userSchema = new mongoose.Schema({
 	email: {
 		type: String,
 		required: true,
@@ -21,18 +23,18 @@ const userSchema = new mongoose.Schema<userDoc, userModel>({
 	},
 });
 
-const User = mongoose.model<userDoc, userModel>('User', userSchema);
-
-userSchema.statics.build = (attrs: userAttrs) => {
-	return new User(attrs);
-};
-
 userSchema.pre('save', async function (done) {
 	if (this.isModified('password')) {
-		const password = this.get('password');
-		this.set('password', Password.hash(password));
+		const hashed = Password.hash(this.get('password'));
+		this.set('password', hashed);
 	}
 	done();
 });
+
+userSchema.statics.build = (attrs: UserAttrs) => {
+	return new User(attrs);
+};
+
+const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
 export { User };

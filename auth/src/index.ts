@@ -45,7 +45,7 @@ app.post(
 				return next(new BadRequestError('email in use', ''));
 			}
 
-			const newUser = new User({ email, password });
+			const newUser = User.build({ email, password });
 			await newUser.save();
 
 			res.status(201).json(newUser);
