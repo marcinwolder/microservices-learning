@@ -1,7 +1,7 @@
-import { BaseError, ErrorTemplate } from './BaseError';
+import { BaseError } from './BaseError';
 
 export class NotFoundError extends BaseError {
-	generateError: () => ErrorTemplate = () => ({ message: 'Site not found!' });
+	generateError = () => [{ message: 'Site not found!' }];
 	statusCode = 404;
 
 	constructor() {

@@ -8,7 +8,7 @@ export class ValidationErrors extends BaseError {
 	statusCode = 400;
 
 	constructor(public errors: ValidationError[]) {
-		super('');
+		super('validation error');
 
 		Object.setPrototypeOf(this, ValidationErrors.prototype);
 	}
