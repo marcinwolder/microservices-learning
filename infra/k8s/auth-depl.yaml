@@ -14,18 +14,4 @@ spec:
     spec:
       containers:
         - name: auth
-          image: marcinwolder/auth
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: auth-ip-srv
-spec:
-  type: ClusterIP
-  selector:
-    app: auth
-  ports:
-    - name: auth
-      protocol: TCP
-      port: 4000
-      targetPort: 4000
+          image: us.gcr.io/ticketing-374023/auth
