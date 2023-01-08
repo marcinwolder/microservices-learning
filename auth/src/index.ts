@@ -3,9 +3,12 @@ import { json } from 'body-parser';
 import { validationResult, ValidationError, body } from 'express-validator';
 import mongoose from 'mongoose';
 import { User } from '../models/users';
-import { handleErrors } from './middleware/errors/handleErrors';
-import { NotFoundError } from './middleware/errors/NotFoundError';
-import { BadRequestError } from './middleware/errors/BadRequestError';
+import {
+	handleErrors,
+	NotFoundError,
+	BadRequestError,
+	ValidationErrors,
+} from './middleware/errors';
 import { Password } from '../services/Password';
 
 const app = express();
@@ -37,13 +40,13 @@ app.post(
 	async (req: Request, res: Response, next: NextFunction) => {
 		if (!validationResult(req).isEmpty()) {
 			const errors = validationResult(req).array() as ValidationError[];
-			next(new BadRequestError(errors[0].msg, errors[0].param ?? ''));
+			next(new ValidationErrors(errors));
 		} else {
 			const { email, password } = req.body;
 
 			const user = await User.findOne({ email });
 			if (user) {
-				return next(new BadRequestError('email in use', ''));
+				return next(new BadRequestError('email in use'));
 			}
 
 			const newUser = User.build({ email, password });
