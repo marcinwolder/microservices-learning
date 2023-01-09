@@ -40,28 +40,40 @@ app.post(
 	async (req: Request, res: Response, next: NextFunction) => {
 		if (!validationResult(req).isEmpty()) {
 			const errors = validationResult(req).array() as ValidationError[];
-			next(new ValidationErrors(errors));
-		} else {
-			const { email, password } = req.body;
-
-			const user = await User.findOne({ email });
-			if (user) {
-				return next(new BadRequestError('email in use'));
-			}
-
-			const newUser = User.build({ email, password });
-			await newUser.save();
-
-			res.status(201).json(newUser);
+			return next(new ValidationErrors(errors));
 		}
+
+		const { email, password } = req.body;
+
+		const user = await User.findOne({ email });
+		if (user) {
+			return next(new BadRequestError('email in use'));
+		}
+
+		const newUser = User.build({ email, password });
+		await newUser.save();
+
+		res.status(201).json(newUser);
 	}
 );
 
-app.post('/auth/test', async (req: Request, res: Response) => {
-	const { storedPassword, password } = req.body;
+app.get(
+	'/auth/checkPassword',
+	[
+		body('storedPassword').notEmpty().withMessage('enter storedPassword'),
+		body('password').notEmpty().withMessage('enter password to compare'),
+	],
+	async (req: Request, res: Response) => {
+		if (!validationResult(req).isEmpty()) {
+			const errors = validationResult(req).array() as ValidationError[];
+			throw new ValidationErrors(errors);
+		}
 
-	res.json(Password.compare(storedPassword, password));
-});
+		const { storedPassword, password } = req.body;
+
+		res.json(Password.compare(storedPassword, password));
+	}
+);
 
 app.all('*', (req: Request, res: Response) => {
 	throw new NotFoundError();
