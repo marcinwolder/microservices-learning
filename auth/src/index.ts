@@ -1,61 +1,34 @@
-import express, { Response, Request, NextFunction } from 'express';
-import { json } from 'body-parser';
+import express, { Response, Request } from 'express';
 import { validationResult, ValidationError, body } from 'express-validator';
 import mongoose from 'mongoose';
-import { User } from '../models/users';
+import { json } from 'body-parser';
+import cookieSession from 'cookie-session';
+
 import {
 	handleErrors,
 	NotFoundError,
-	BadRequestError,
 	ValidationErrors,
 } from './middleware/errors';
 import { Password } from '../services/Password';
+import { createUserRouter } from './routes';
 
 const app = express();
 
 app.use(json());
 
+app.set('trust proxy', true);
+app.use(
+	cookieSession({
+		secure: true,
+		signed: false,
+	})
+);
+
+app.use(createUserRouter);
+
 app.get('/auth/currentUser', (req: Request, res: Response) => {
 	res.json('hello world');
 });
-
-app.post(
-	'/auth/createUser',
-	[
-		body('password')
-			.trim()
-			.notEmpty()
-			.withMessage('enter password')
-			.isStrongPassword()
-			.withMessage('use stronger password')
-			.isLength({ min: 8 })
-			.withMessage('password must be at least 8 chars long'),
-		body('email')
-			.trim()
-			.notEmpty()
-			.withMessage('enter email')
-			.isEmail()
-			.withMessage('use right email format'),
-	],
-	async (req: Request, res: Response, next: NextFunction) => {
-		if (!validationResult(req).isEmpty()) {
-			const errors = validationResult(req).array() as ValidationError[];
-			return next(new ValidationErrors(errors));
-		}
-
-		const { email, password } = req.body;
-
-		const user = await User.findOne({ email });
-		if (user) {
-			return next(new BadRequestError('email in use'));
-		}
-
-		const newUser = User.build({ email, password });
-		await newUser.save();
-
-		res.status(201).json(newUser);
-	}
-);
 
 app.get(
 	'/auth/checkPassword',
