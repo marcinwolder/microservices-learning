@@ -43,7 +43,7 @@ createUserRouter.post(
 		await newUser.save();
 
 		req.session = {
-			jwt: jwt.sign(newUser.toJSON(), 'asdf'),
+			jwt: jwt.sign(newUser.toJSON(), process.env.JWT_KEY!),
 		};
 
 		res.status(201).json(newUser);

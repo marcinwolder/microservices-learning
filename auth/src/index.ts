@@ -55,6 +55,8 @@ app.all('*', (req: Request, res: Response) => {
 app.use(handleErrors);
 
 (async () => {
+	if (!process.env.JWT_KEY) throw new Error('no JWT_KEY env connected');
+
 	try {
 		mongoose.set('strictQuery', false);
 		await mongoose.connect('mongodb://auth-mongo-ip-srv:27017/auth');
