@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: auth-mongo-ip-srv
 spec:
+  type: ClusterIP
   selector:
     app: auth-mongo
   ports:
