@@ -6,10 +6,10 @@ import jwt from 'jsonwebtoken';
 import { ValidationErrors, BadRequestError } from '../middleware/errors';
 import { User } from '../../models/users';
 
-const createUserRouter = Router();
+const signUpRouter = Router();
 
-createUserRouter.post(
-	'/auth/createUser',
+signUpRouter.post(
+	'/auth/signUp',
 	[
 		body('password')
 			.trim()
@@ -50,4 +50,4 @@ createUserRouter.post(
 	}
 );
 
-export { createUserRouter };
+export { signUpRouter };

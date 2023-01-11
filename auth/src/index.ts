@@ -10,7 +10,7 @@ import {
 	ValidationErrors,
 } from './middleware/errors';
 import { Password } from '../services/Password';
-import { createUserRouter } from './routes';
+import { signInRouter, signUpRouter } from './routes';
 
 const app = express();
 
@@ -24,7 +24,8 @@ app.use(
 	})
 );
 
-app.use(createUserRouter);
+app.use(signInRouter);
+app.use(signUpRouter);
 
 app.get('/auth/currentUser', (req: Request, res: Response) => {
 	res.json('hello world');
