@@ -4,6 +4,7 @@ import { validationResult, ValidationError } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
 import { ValidationErrors, BadRequestError } from '../middleware/errors';
+import { expressValidatorError } from '../middleware/express-validator-error';
 import { User } from '../../models/users';
 
 const signUpRouter = Router();
@@ -26,12 +27,8 @@ signUpRouter.post(
 			.isEmail()
 			.withMessage('use right email format'),
 	],
+	expressValidatorError,
 	async (req: Request, res: Response, next: NextFunction) => {
-		if (!validationResult(req).isEmpty()) {
-			const errors = validationResult(req).array() as ValidationError[];
-			return next(new ValidationErrors(errors));
-		}
-
 		const { email, password } = req.body;
 
 		const user = await User.findOne({ email });
