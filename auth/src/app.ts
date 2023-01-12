@@ -5,7 +5,12 @@ import cookieSession from 'cookie-session';
 
 import { NotFoundError, ValidationErrors } from './errors';
 import { Password } from '../services/Password';
-import { currentUserRouter, signInRouter, signUpRouter } from './routes';
+import {
+	currentUserRouter,
+	signInRouter,
+	signUpRouter,
+	logoutRouter,
+} from './routes';
 import { handleErrors } from './middleware/handle-errors';
 
 const app = express();
@@ -23,6 +28,7 @@ app.use(
 app.use(signInRouter);
 app.use(signUpRouter);
 app.use(currentUserRouter);
+app.use(logoutRouter);
 
 app.get(
 	'/auth/checkPassword',
