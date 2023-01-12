@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { BaseError } from './BaseError';
+import { BaseError } from '../errors/BaseError';
 
 export const handleErrors = (
 	err: Error,
@@ -13,8 +13,3 @@ export const handleErrors = (
 		res.status(400).send({ message: 'something went wrong' });
 	}
 };
-
-export * from './BadRequestError';
-export * from './BaseError';
-export * from './NotFoundError';
-export * from './ValidationErrors';

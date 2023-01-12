@@ -1,9 +1,8 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { body } from 'express-validator';
-import { validationResult, ValidationError } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
-import { ValidationErrors, BadRequestError } from '../middleware/errors';
+import { BadRequestError } from '../errors';
 import { expressValidatorError } from '../middleware/express-validator-error';
 import { User } from '../../models/users';
 

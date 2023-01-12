@@ -3,13 +3,10 @@ import { validationResult, ValidationError, body } from 'express-validator';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 
-import {
-	handleErrors,
-	NotFoundError,
-	ValidationErrors,
-} from './middleware/errors';
+import { NotFoundError, ValidationErrors } from './errors';
 import { Password } from '../services/Password';
-import { signInRouter, signUpRouter } from './routes';
+import { currentUserRouter, signInRouter, signUpRouter } from './routes';
+import { handleErrors } from './middleware/handleErrors';
 
 const app = express();
 
@@ -25,10 +22,7 @@ app.use(
 
 app.use(signInRouter);
 app.use(signUpRouter);
-
-app.get('/auth/currentUser', (req: Request, res: Response) => {
-	res.json('hello world');
-});
+app.use(currentUserRouter);
 
 app.get(
 	'/auth/checkPassword',
