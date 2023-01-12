@@ -1,4 +1,4 @@
-import { BaseError } from './';
+import { BaseError } from '.';
 import { ValidationError } from 'express-validator';
 
 export class ValidationErrors extends BaseError {

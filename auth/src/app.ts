@@ -6,7 +6,7 @@ import cookieSession from 'cookie-session';
 import { NotFoundError, ValidationErrors } from './errors';
 import { Password } from '../services/Password';
 import { currentUserRouter, signInRouter, signUpRouter } from './routes';
-import { handleErrors } from './middleware/handleErrors';
+import { handleErrors } from './middleware/handle-errors';
 
 const app = express();
 
