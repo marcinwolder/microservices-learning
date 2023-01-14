@@ -28,7 +28,7 @@ signInRouter.get(
 			jwt: jwt.sign(user.toJSON(), process.env.JWT_KEY!),
 		};
 
-		res.status(201).json(user);
+		res.status(200).json(user);
 	}
 );
 
