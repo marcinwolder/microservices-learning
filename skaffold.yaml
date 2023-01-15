@@ -14,6 +14,14 @@ build:
       manual:
         - dest: .
           src: src/**/*.ts
+  - image: marcinwolder/client
+    context: client
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - dest: .
+          src: ./**/*.[ts/tsx/js/jsx]
 manifests:
   rawYaml:
   - infra/k8s/*.yaml

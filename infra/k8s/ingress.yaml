@@ -17,3 +17,10 @@ spec:
                 name: auth-ip-srv
                 port:
                   number: 4000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: client-ip-srv
+                port:
+                  number: 3000
