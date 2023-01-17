@@ -1,20 +1,20 @@
 import './global.css';
 import Link from 'next/link';
-import {headers as getHeaders, cookies} from 'next/headers';
+import {headers as getHeaders} from 'next/headers';
 
-import {useClientPath} from '@/hooks/use-client';
+import {useClient} from '@/hooks/use-client';
 import LogInConsole from './LogInConsole';
+import genHeaders from '@/src/genHeaders';
 
 export default async function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
-  const clientPath = useClientPath();
-  const headers = getHeaders();
-  headers.forEach(x=>console.log(x));
-
-  const currentUser = await fetch(clientPath+"/auth/currentUser", {headers, cache: 'no-cache'}).then(res => res.json()).catch((err) => {});
+  const client = useClient();
+  const headers = genHeaders(getHeaders());
+  
+  const currentUser = await client.get('/auth/currentUser', {headers}).then(res=>res.data);
 	console.log('🚀 ~ file: layout.tsx:20 ~ currentUser', currentUser);
 
 	return (
