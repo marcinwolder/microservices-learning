@@ -4,7 +4,10 @@ import {headers as getHeaders} from 'next/headers';
 
 import {useClient} from '@/hooks/use-client';
 import LogInConsole from './LogInConsole';
+import LogOutConsole from './LogOutConsole';
 import genHeaders from '@/src/genHeaders';
+
+export const revalidate = 0;
 
 export default async function RootLayout({
 	children,
@@ -15,7 +18,6 @@ export default async function RootLayout({
   const headers = genHeaders(getHeaders());
   
   const currentUser = await client.get('/auth/currentUser', {headers}).then(res=>res.data);
-	console.log('🚀 ~ file: layout.tsx:20 ~ currentUser', currentUser);
 
 	return (
 		<html>
@@ -25,7 +27,7 @@ export default async function RootLayout({
 					<div className='p-2 font-bold text-2xl italic'>
 						<Link href={'/'}>ticketing.dev</Link>
 					</div>
-					<LogInConsole />
+					{currentUser ? <LogOutConsole /> : <LogInConsole /> }
 				</div>
 				{children}
 			</body>

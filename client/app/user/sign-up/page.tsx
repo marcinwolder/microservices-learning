@@ -21,9 +21,8 @@ const Page = () => {
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
-    console.log("🚀 ~ file: page.tsx:28 ~ handleSubmit ~ JSON.stringify({ email, password })", JSON.stringify({ email, password }))
-		const userData = await fetch('/auth/signUp', {
+    
+		await fetch('/auth/signUp', {
 			method: 'POST',
 			body: JSON.stringify({ email, password }),
       headers: {
@@ -34,13 +33,12 @@ const Page = () => {
         const data = await response.json();
         if (response.ok) {
           router.push('/');
+          router.refresh();
           return data;
         } else {
           setErrors(data);
         }
       })
-		console.log('🚀 ~ file: page.tsx:17 ~ handleSubmit ~ userData', userData);
-		console.log('🚀 ~ file: page.tsx:16 ~ Page ~ errors', errors);
 	};
 
 	return (
