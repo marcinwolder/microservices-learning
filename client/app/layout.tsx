@@ -1,8 +1,8 @@
 import './global.css';
 import Link from 'next/link';
-import {headers as getHeaders} from 'next/headers';
+import { headers as getHeaders } from 'next/headers';
 
-import {useClient} from '@/hooks/use-client';
+import { useClient } from '@/hooks/use-client';
 import LogInConsole from './LogInConsole';
 import LogOutConsole from './LogOutConsole';
 import genHeaders from '@/src/genHeaders';
@@ -14,20 +14,23 @@ export default async function RootLayout({
 }: {
 	children: React.ReactNode;
 }) {
-  const client = useClient();
-  const headers = genHeaders(getHeaders());
-  
-  const currentUser = await client.get('/auth/currentUser', {headers}).then(res=>res.data);
+	const client = useClient();
+	const headers = genHeaders(getHeaders());
+
+	const currentUser = await client
+		.get('/auth/currentUser', { headers })
+		.then((res) => res.data);
 
 	return (
 		<html>
 			<head />
 			<body>
-				<div className=' bg-slate-400 flex px-6 py-1 justify-between'>
+				<div className=' bg-slate-400 flex px-6 py-1 justify-between items-center'>
 					<div className='p-2 font-bold text-2xl italic'>
 						<Link href={'/'}>ticketing.dev</Link>
 					</div>
-					{currentUser ? <LogOutConsole /> : <LogInConsole /> }
+          {currentUser && <p>{currentUser.email}</p>}
+					{currentUser ? <LogOutConsole /> : <LogInConsole />}
 				</div>
 				{children}
 			</body>

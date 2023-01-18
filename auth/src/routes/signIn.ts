@@ -9,7 +9,7 @@ import { Password } from '../../services/Password';
 
 const signInRouter = Router();
 
-signInRouter.get(
+signInRouter.post(
 	'/auth/signIn',
 	[
 		body('password').trim().notEmpty().withMessage('enter password'),
