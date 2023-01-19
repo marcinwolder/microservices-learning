@@ -27,7 +27,7 @@ export default async function RootLayout({
 			<body>
 				<div className=' bg-slate-400 flex px-6 py-1 justify-between items-center'>
 					<div className='p-2 font-bold text-2xl italic'>
-						<Link href={'/'}>ticketing.dev</Link>
+						<Link href={'/'}>LMuML</Link>
 					</div>
           {currentUser && <p>{currentUser.email}</p>}
 					{currentUser ? <LogOutConsole /> : <LogInConsole />}

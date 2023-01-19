@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: client
-          image: marcinwolder/client
+          image: gcr.io/ticketing-374023/client

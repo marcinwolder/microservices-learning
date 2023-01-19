@@ -3,10 +3,10 @@ kind: Config
 metadata:
   name: ticketing
 build:
-  local:
-    push: false
+  googleCloudBuild:
+    projectId: "ticketing-374023"
   artifacts:
-  - image: marcinwolder/auth
+  - image: "gcr.io/ticketing-374023/auth"
     context: auth
     docker:
       dockerfile: Dockerfile
@@ -14,7 +14,7 @@ build:
       manual:
         - dest: .
           src: src/**/*.ts
-  - image: marcinwolder/client
+  - image: "gcr.io/ticketing-374023/client"
     context: client
     docker:
       dockerfile: Dockerfile
