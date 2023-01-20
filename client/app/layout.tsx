@@ -3,7 +3,8 @@ import Link from 'next/link';
 import { headers as getHeaders } from 'next/headers';
 
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import { SessionContextProvider } from '@supabase/auth-helpers-react';
+import { SessionContextProvider, useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
+import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
 
 import { useClient } from '@/hooks/use-client';
 import LogInConsole from './LogInConsole';
@@ -33,6 +34,9 @@ export default async function RootLayout({
           <div className=' bg-slate-400 flex px-6 py-1 justify-between items-center'>
             <div className='p-2 font-bold text-2xl italic'>
               <Link href={'/'}>LMuML</Link>
+            </div>
+            <div>
+              <Auth supabaseClient={supabase} appearance={{theme: ThemeSupa}} theme={"dark"} />
             </div>
             {currentUser && <p>{currentUser.email}</p>}
             {currentUser ? <LogOutConsole /> : <LogInConsole />}
