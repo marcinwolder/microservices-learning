@@ -4,8 +4,11 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import genError from '@/utils/getErrors';
+import { useClient } from '@/hooks/use-client';
 
 const Page = () => {
+  const client = useClient();
+
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPass, setConfirmPass] = useState('');
@@ -27,23 +30,15 @@ const Page = () => {
       return;
     }
 
-		await fetch('/auth/signUp', {
-			method: 'POST',
-			body: JSON.stringify({ email, password }),
-      headers: {
-        'Content-Type': 'application/json',
-      }
-		})
-      .then(async (response) => {
-        const data = await response.json();
-        if (response.ok) {
-          router.push('/');
-          router.refresh();
-          return data;
-        } else {
-          setErrors(data);
-        }
-      })
+
+    await client.post('/auth/signUp', {email, password}).then(async (response) => {
+      router.push('/');
+      router.refresh();
+      return response.data;
+    }).catch(err=>{ 
+      setErrors(err);
+    });
+      
 	};
 
 	return (

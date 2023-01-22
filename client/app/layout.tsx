@@ -1,10 +1,8 @@
 import './global.css';
 import Link from 'next/link';
 import { headers as getHeaders } from 'next/headers';
-
-import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
-import { SessionContextProvider, useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
-import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
+import { unstable_getServerSession } from 'next-auth';
+import authOptions from '../pages/api/auth/[...nextauth]';
 
 import { useClient } from '@/hooks/use-client';
 import LogInConsole from './LogInConsole';
@@ -13,36 +11,33 @@ import genHeaders from '@/src/genHeaders';
 
 export const revalidate = 0;
 
-export default async function RootLayout({
-	children,
-}: {
+export default async function RootLayout(props: {
 	children: React.ReactNode;
 }) {
 	const client = useClient();
 	const headers = genHeaders(getHeaders());
-  const supabase = createBrowserSupabaseClient();
 
 	const currentUser = await client
 		.get('/auth/currentUser', { headers })
 		.then((res) => res.data);
 
+  console.log(props);
+
 	return (
 		<html>
 			<head />
 			<body>
-        <SessionContextProvider supabaseClient={supabase}>
           <div className=' bg-slate-400 flex px-6 py-1 justify-between items-center'>
             <div className='p-2 font-bold text-2xl italic'>
               <Link href={'/'}>LMuML</Link>
             </div>
             <div>
-              <Auth supabaseClient={supabase} appearance={{theme: ThemeSupa}} theme={"dark"} />
+              
             </div>
             {currentUser && <p>{currentUser.email}</p>}
             {currentUser ? <LogOutConsole /> : <LogInConsole />}
           </div>
-          {children}
-        </SessionContextProvider>
+          {props.children}
 			</body>
 		</html>
 	);

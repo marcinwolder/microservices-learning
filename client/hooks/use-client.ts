@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export function useClient() {
-	let path = 'lmuml.pl';
+	let path = 'http://lmuml.pl';
 	// if (typeof window === 'undefined') {
 	// 	path += 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local';
 	// }

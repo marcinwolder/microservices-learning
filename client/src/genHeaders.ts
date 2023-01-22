@@ -6,5 +6,5 @@ export default function genHeaders(headers: Headers) {
 		if (header.done) break;
 		bufor[header.value[0]] = header.value[1];
 	}
-	return bufor;
+	return { ...bufor, Host: 'lmuml.pl' };
 }
