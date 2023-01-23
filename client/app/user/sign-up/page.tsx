@@ -30,14 +30,23 @@ const Page = () => {
       return;
     }
 
-
-    await client.post('/auth/signUp', {email, password}).then(async (response) => {
-      router.push('/');
-      router.refresh();
-      return response.data;
-    }).catch(err=>{ 
-      setErrors(err);
-    });
+    await fetch('/auth/signUp', {
+			method: 'POST',
+			body: JSON.stringify({ email, password }),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+		})
+      .then(async (response) => {
+        const data = await response.json();
+        if (response.ok) {
+          router.push('/');
+          router.refresh();
+          return data;
+        } else {
+          setErrors(data);
+        }
+      })
       
 	};
 

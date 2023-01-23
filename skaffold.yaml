@@ -14,14 +14,14 @@ build:
       manual:
         - dest: .
           src: src/**/*.ts
-  # - image: "gcr.io/ticketing-374023/client"
-  #   context: client
-  #   docker:
-  #     dockerfile: Dockerfile
-  #   sync:
-  #     manual:
-  #       - dest: .
-  #         src: ./**/*.[ts/tsx/js/jsx]
+  - image: "gcr.io/ticketing-374023/client"
+    context: client
+    docker:
+      dockerfile: Dockerfile
+    sync:
+      manual:
+        - dest: .
+          src: ./**/*.[ts/tsx/js/jsx]
 manifests:
   rawYaml:
   - infra/k8s/*.yaml
