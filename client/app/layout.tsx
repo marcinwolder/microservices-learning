@@ -5,7 +5,7 @@ import { headers as getHeaders } from 'next/headers';
 import { useClient } from '@/hooks/use-client';
 import LogInConsole from './LogInConsole';
 import LogOutConsole from './LogOutConsole';
-import genHeaders from '@/src/genHeaders';
+import genHeaders from '@/utils/genHeaders';
 
 export const revalidate = 0;
 
@@ -15,10 +15,11 @@ export default async function RootLayout({ children }: {
 	const client = useClient();
 	const headers = genHeaders(getHeaders());
 
+  // napisz funkcję zwracającą 10 pierwszych liczb pierwszych
+
 	const currentUser = await client
 		.get('/auth/currentUser', { headers })
 		.then((res) => res.data);
-  
 
 	return (
 		<html>
