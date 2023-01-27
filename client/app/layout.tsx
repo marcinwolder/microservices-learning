@@ -15,8 +15,6 @@ export default async function RootLayout({ children }: {
 	const client = useClient();
 	const headers = genHeaders(getHeaders());
 
-  // napisz funkcję zwracającą 10 pierwszych liczb pierwszych
-
 	const currentUser = await client
 		.get('/auth/currentUser', { headers })
 		.then((res) => res.data);
