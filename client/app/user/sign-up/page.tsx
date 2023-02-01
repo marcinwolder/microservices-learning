@@ -4,10 +4,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import genError from '@/utils/getErrors';
-import { useClient } from '@/hooks/use-client';
 
 const Page = () => {
-  const client = useClient();
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
