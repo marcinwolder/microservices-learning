@@ -28,7 +28,7 @@ const Page = () => {
       return;
     }
 
-    await fetch('/auth/signUp', {
+    await fetch('/api/auth/signUp', {
 			method: 'POST',
 			body: JSON.stringify({ email, password }),
       headers: {

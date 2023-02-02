@@ -10,14 +10,14 @@ spec:
     - host: lmuml.pl
       http:
         paths:
-          - path: /auth
+          - path: /api/auth
             pathType: Prefix
             backend:
               service:
                 name: auth-ip-srv
                 port:
                   number: 4000
-          - path: /tickets
+          - path: /api/tickets
             pathType: Prefix
             backend:
               service:

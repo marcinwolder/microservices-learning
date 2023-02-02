@@ -15,7 +15,7 @@ const Page = () => {
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
     
-		await fetch('/auth/signIn', {
+		await fetch('/api/auth/signIn', {
 			method: 'POST',
 			body: JSON.stringify({ email, password }),
       headers: {

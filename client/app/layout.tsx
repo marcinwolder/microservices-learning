@@ -16,7 +16,7 @@ export default async function RootLayout({ children }: {
 	const headers = genHeaders(getHeaders());
 
 	const currentUser = await client
-		.get('/auth/currentUser', { headers })
+		.get('/api/auth/currentUser', { headers })
 		.then((res) => res.data);
 
 	return (

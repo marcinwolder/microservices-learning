@@ -9,7 +9,7 @@ import { User } from '../../models/users';
 const signUpRouter = Router();
 
 signUpRouter.post(
-	'/auth/signUp',
+	'/api/auth/signUp',
 	[
 		body('password')
 			.trim()

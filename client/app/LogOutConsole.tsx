@@ -9,7 +9,7 @@ const LogOutConsole = () => {
   const router = useRouter();
 
   const handleClick = async ()=>{
-    await client.post("/auth/logout");
+    await client.post("/api/auth/logout");
     router.refresh();
   }
 

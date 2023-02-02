@@ -10,7 +10,7 @@ import { Password } from '../../services/Password';
 const signInRouter = Router();
 
 signInRouter.post(
-	'/auth/signIn',
+	'/api/auth/signIn',
 	[
 		body('password').trim().notEmpty().withMessage('enter password'),
 		body('email').trim().notEmpty().withMessage('enter email'),

@@ -4,7 +4,7 @@ import { currentUser } from '../middleware/current-user';
 const currentUserRouter = Router();
 
 currentUserRouter.get(
-	'/auth/currentUser',
+	'/api/auth/currentUser',
 	currentUser,
 	async (req: Request, res: Response) => {
 		res.status(200).json(req.currentUser || null);
