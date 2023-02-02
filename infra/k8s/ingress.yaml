@@ -17,6 +17,13 @@ spec:
                 name: auth-ip-srv
                 port:
                   number: 4000
+          - path: /tickets
+            pathType: Prefix
+            backend:
+              service:
+                name: tickets-ip-srv
+                port:
+                  number: 4000
           - path: /
             pathType: Prefix
             backend:
