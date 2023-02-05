@@ -2,8 +2,7 @@ import { Router, Request, Response, NextFunction } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
-import { BadRequestError } from '../errors';
-import { expressValidatorError } from '../middleware/express-validator-error';
+import { BadRequestError, expressValidatorError } from '@lmuml/common';
 import { User } from '../../models/users';
 import { Password } from '../../services/Password';
 

@@ -2,10 +2,10 @@ import express, { Response, Request } from 'express';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 
-import { NotFoundError } from './errors';
+import { NotFoundError, handleErrors } from '@lmuml/common';
+
 //prettier-ignore
 import { currentUserRouter, signInRouter, signUpRouter, logoutRouter } from './routes';
-import { handleErrors } from './middleware/handle-errors';
 
 const app = express();
 

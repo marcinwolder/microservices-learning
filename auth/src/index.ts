@@ -3,10 +3,11 @@ import { app } from './app';
 
 (async () => {
 	if (!process.env.JWT_KEY) throw new Error('no JWT_KEY env connected');
+	if (!process.env.MONGO_URL) throw new Error('no MONGO_URL env connected');
 
 	try {
 		mongoose.set('strictQuery', false);
-		await mongoose.connect('mongodb://auth-mongo-ip-srv:27017/auth');
+		await mongoose.connect(process.env.MONGO_URL);
 		console.log('DB connected!');
 	} catch (err) {
 		console.error('DB error');
