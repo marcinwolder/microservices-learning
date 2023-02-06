@@ -3,7 +3,7 @@ import React from 'react';
 const app = () => {
   return (
     <div>
-      app
+      Strona do gry - obstawiania wyników meczów ligi mistrzów
     </div>
   );
 };
