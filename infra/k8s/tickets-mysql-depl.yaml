@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tickets-mongo-depl
+  name: tickets-mysql-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: tickets-mongo
+      app: tickets-mysql
   template:
     metadata:
       labels:
-        app: tickets-mongo
+        app: tickets-mysql
     spec:
       containers:
-        - name: tickets-mongo
-          image: mongo
+        - name: tickets-mysql
+          image: mysql

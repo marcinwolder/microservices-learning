@@ -17,7 +17,7 @@ spec:
           image: gcr.io/ticketing-374023/auth
           env:
             - name: MONGO_URL
-              value: 'mongodb://tickets-mongo-ip-srv:27017/auth'
+              value: 'mongodb://auth-mongo-ip-srv:27017/auth'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
