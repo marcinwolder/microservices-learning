@@ -4,7 +4,7 @@ import { app } from '../../app';
 it('returns a 200 and cookie for valid login data', async () => {
 	await global.signup();
 	const res = await request(app)
-		.get('/auth/signIn')
+		.post('/api/auth/signIn')
 		.send({
 			email: 'marcinwolder7@gmail.com',
 			password: 'Marcin1*',
@@ -15,7 +15,7 @@ it('returns a 200 and cookie for valid login data', async () => {
 
 it('returns a 400 for unknown email', async () => {
 	await request(app)
-		.get('/auth/signIn')
+		.post('/api/auth/signIn')
 		.send({
 			email: 'marcinwolder7@gmail.com',
 			password: 'Marcin1*',
@@ -26,7 +26,7 @@ it('returns a 400 for unknown email', async () => {
 it('returns a 400 for wrong password', async () => {
 	await global.signup();
 	await request(app)
-		.get('/auth/signIn')
+		.post('/api/auth/signIn')
 		.send({
 			email: 'marcinwolder7@gmail.com',
 			password: '123',

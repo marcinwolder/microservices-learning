@@ -33,7 +33,7 @@ afterAll(async () => {
 
 global.signup = async () => {
 	const res = await request(app)
-		.post('/auth/signUp')
+		.post('/api/auth/signUp')
 		.send({
 			email: 'marcinwolder7@gmail.com',
 			password: 'Marcin1*',
