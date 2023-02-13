@@ -1,14 +1,14 @@
-import { createConnection } from 'mysql';
+import { createConnection } from 'mysql2';
 import { app } from './app';
 
 (async () => {
 	if (!process.env.JWT_KEY) throw new Error('no JWT_KEY env connected');
 
 	const link = createConnection({
-		host: 'tickets-mysql-ip-srv',
-		port: 3306,
+		host: '34.65.134.45',
 		user: 'root',
-		password: '',
+		password: 'Mw122122',
+		database: 'tickets',
 	});
 
 	link.connect(function (err) {
