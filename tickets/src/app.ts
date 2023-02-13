@@ -2,6 +2,8 @@ import express, { Response, Request } from 'express';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 
+import { NotFoundError, handleErrors } from '@lmuml/common';
+
 const app = express();
 
 app.use(json());
@@ -15,9 +17,9 @@ app.use(
 );
 
 app.all('*', (req: Request, res: Response) => {
-	res.json('tickets');
+	throw new NotFoundError();
 });
 
-// app.use(handleErrors);
+app.use(handleErrors);
 
 export { app };

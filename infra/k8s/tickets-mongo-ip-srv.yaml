@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: tickets-mysql-ip-srv
+  name: tickets-mongo-ip-srv
 spec:
   type: ClusterIP
   selector:
-    app: tickets-mysql
+    app: tickets-mongo
   ports:
     - name: db
       protocol: TCP
-      port: 3306
-      targetPort: 3306
+      port: 27017
+      targetPort: 27017
