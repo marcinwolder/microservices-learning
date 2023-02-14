@@ -1,7 +1,7 @@
 import express, { Response, Request } from 'express';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
-import { NotFoundError, handleErrors } from '@lmuml/common';
+import { NotFoundError, handleErrors, currentUser } from '@lmuml/common';
 
 import { createPath } from './routes/create';
 
@@ -17,6 +17,7 @@ app.use(
 	})
 );
 
+app.use(currentUser);
 app.use(createPath);
 
 app.all('*', (req: Request, res: Response) => {
