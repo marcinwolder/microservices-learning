@@ -3,10 +3,11 @@ import { app } from '../app';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import jwt from 'jsonwebtoken';
+import { TicketDoc } from '../../models/ticket';
 
 declare global {
 	var signIn: () => string[];
-	var createTicket: () => Promise<String[]>;
+	var createTicket: () => Promise<TicketDoc>;
 }
 
 let mongo: MongoMemoryServer;
