@@ -1,9 +1,12 @@
+import request from 'supertest';
+import { app } from '../app';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import jwt from 'jsonwebtoken';
 
 declare global {
 	var signIn: () => string[];
+	var createTicket: () => Promise<String[]>;
 }
 
 let mongo: MongoMemoryServer;
@@ -41,4 +44,15 @@ global.signIn = () => {
 	const base64 = Buffer.from(sessionJSON).toString('base64');
 
 	return [`session=${base64}`];
+};
+global.createTicket = async () => {
+	const ticket = await request(app)
+		.post('/api/tickets')
+		.set('Cookie', signIn())
+		.send({
+			title: 'important ticket',
+			price: 10.28,
+		})
+		.expect(201);
+	return ticket.body;
 };
