@@ -1,18 +1,17 @@
-import { BadRequestError } from '@lmuml/common/build/errors/BadRequestError';
-import { requireAuth } from '@lmuml/common/build/middleware/require-auth';
+import { NotFoundError } from '@lmuml/common/build/errors/NotFoundError';
 import { Router } from 'express';
 import { Ticket } from '../../models/ticket';
 
 const router = Router();
 
-router.get('/api/tickets/:ticketId', requireAuth, async (req, res, next) => {
-	const { ticketId } = req.params;
+router.get('/api/tickets/:ticketId', async (req, res, next) => {
+	const id = req.params.ticketId;
 
-	const ticket = await Ticket.findOne({ _id: ticketId });
+	const ticket = await Ticket.findById(id);
 	if (ticket) {
 		res.status(200).send(ticket);
 	} else {
-		next(new BadRequestError("Can't find ticket with given id"));
+		next(new NotFoundError());
 	}
 });
 
