@@ -6,8 +6,11 @@ import jwt from 'jsonwebtoken';
 import { TicketDoc } from '../../models/ticket';
 
 declare global {
-	var signIn: () => string[];
-	var createTicket: () => Promise<TicketDoc>;
+	var signIn: (id?: number) => string[];
+	var createTicket: (config?: {
+		title?: string;
+		id?: number;
+	}) => Promise<TicketDoc>;
 }
 
 let mongo: MongoMemoryServer;
@@ -34,9 +37,9 @@ afterAll(async () => {
 	await mongoose.connection.close();
 });
 
-global.signIn = () => {
+global.signIn = (id?: number) => {
 	const payload = {
-		id: 2,
+		id: id || 2,
 		email: 'marcinwolder7@gmail.com',
 	};
 	const token = jwt.sign(payload, process.env.JWT_KEY!);
@@ -46,12 +49,12 @@ global.signIn = () => {
 
 	return [`session=${base64}`];
 };
-global.createTicket = async () => {
+global.createTicket = async (config?: { title?: string; id?: number }) => {
 	const ticket = await request(app)
 		.post('/api/tickets')
-		.set('Cookie', signIn())
+		.set('Cookie', signIn(config?.id))
 		.send({
-			title: 'important ticket',
+			title: config?.title || 'important ticket',
 			price: 10.28,
 		})
 		.expect(201);
