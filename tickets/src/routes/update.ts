@@ -1,4 +1,5 @@
 import { BadRequestError } from '@lmuml/common/build/errors/BadRequestError';
+import { NotAuthorizedError } from '@lmuml/common/build/errors/NotAuthorizedError';
 import { expressValidatorError } from '@lmuml/common/build/middleware/express-validator-error';
 import { requireAuth } from '@lmuml/common/build/middleware/require-auth';
 
@@ -24,14 +25,11 @@ router.put(
 		const { title, price } = req.body;
 		const { id } = req.currentUser!;
 		const { ticketId } = req.params;
+
 		const ticket = await Ticket.findById(ticketId);
+
 		if (!ticket) next(new BadRequestError('Ticket not found'));
-		else if (ticket.userId != id)
-			next(
-				new BadRequestError(
-					'You must be owner of the ticket to modify its data'
-				)
-			);
+		else if (ticket.userId != id) next(new NotAuthorizedError());
 		else {
 			ticket.set({ title, price });
 			await ticket.save();
