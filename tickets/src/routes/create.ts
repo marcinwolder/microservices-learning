@@ -1,6 +1,7 @@
+import { expressValidatorError } from '@lmuml/common/build/middleware/express-validator-error';
+import { requireAuth } from '@lmuml/common/build/middleware/require-auth';
 import { Router, Request, Response } from 'express';
 import { body } from 'express-validator';
-import { requireAuth, expressValidatorError } from '@lmuml/common';
 import { Ticket } from '../../models/ticket';
 
 const router = Router();

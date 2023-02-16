@@ -1,5 +1,5 @@
+import { requireAuth } from '@lmuml/common/build/middleware/require-auth';
 import { Router, Request, Response } from 'express';
-import { requireAuth } from '@lmuml/common';
 import { Ticket } from '../../models/ticket';
 
 const router = Router();

@@ -1,5 +1,6 @@
+import { BadRequestError } from '@lmuml/common/build/errors/BadRequestError';
+import { requireAuth } from '@lmuml/common/build/middleware/require-auth';
 import { Router } from 'express';
-import { BadRequestError, requireAuth } from '@lmuml/common';
 import { Ticket } from '../../models/ticket';
 
 const router = Router();
