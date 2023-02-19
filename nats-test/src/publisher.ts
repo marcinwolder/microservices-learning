@@ -5,5 +5,15 @@ const stan = nats.connect('lmuml', 'abc', {
 });
 
 stan.on('connect', () => {
-	console.log('connected');
+	console.log('publisher connected');
+
+	const data = JSON.stringify({
+		id: '123',
+		title: 'concert',
+		price: 20,
+	});
+
+	stan.publish('ticket:create', data, () => {
+		console.log('event published');
+	});
 });
