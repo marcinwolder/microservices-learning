@@ -1,8 +1,0 @@
-{
-  "yaml.schemas": {
-    "kubernetes://schema/apps/v1@deployment": "file://wsl.localhost/Ubuntu/home/folder/prod/ticketing/infra/k8s/auth-depl.yaml"
-  },
-  "cSpell.ignoreWords": [
-    "marcinwoldecom"
-  ]
-}
