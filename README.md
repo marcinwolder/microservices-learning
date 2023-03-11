@@ -10,4 +10,5 @@ The project I create while learning new **_backend / frontend / fullstack_** tec
 - Google Cloud
 - Next.js
 - MongoDB
-  In addition, I use the technologies like: **Typescript, React, Node.JS**
+ 
+ In addition, I use the technologies like: **Typescript, React, Node.JS**
